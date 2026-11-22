@@ -1,0 +1,30 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: dataentry-mongo
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+
+  web:
+    build: .
+    image: dataentry-app:1.0
+    container_name: dataentry-web
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      MONGO_URI: mongodb://mongo:27017
+      DB_NAME: dataentry
+      SECRET_KEY: change-me-in-production
+      ADMIN_USER: admin
+      ADMIN_PASSWORD: admin
+      COMPANY_NAME: MishaIQ
+      COMPANY_EMAIL: hello@MishaIQ.com
+      COMPANY_PHONE: "+91 9938667979"
+      COMPANY_ADDRESS: Bhubaneswar,Odisha,India
+    depends_on:
+      - mongo
+
+volumes:
+  mongo_data:
