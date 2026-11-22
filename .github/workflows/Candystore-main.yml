@@ -1,0 +1,8 @@
+services:
+  candy-store:
+    image: philippaul/candy-store:02
+    pull_policy: never
+    container_name: candy-store-app
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
